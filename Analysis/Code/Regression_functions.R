@@ -78,9 +78,12 @@ lasso_regression <- function(training, testing, k = 10){
   reg <- cv.glmnet(x, y, alpha = 1, lambda = lambdas, nfolds = k)
   best.reg <- glmnet(x, y, alpha = 1, lambda = reg$lambda.min)
   beta.hat <- as.matrix(coef(best.reg))
+  predictors <- names(training[,-2][which(beta.hat!=0) - 1])
+  best.formula <- paste(predictors, collapse = " + ") %>% 
+    paste("growth ~ ", ., sep = "")
   RMSE <- sqrt(t(cbind(1, x_test) %*% beta.hat - y_test) %*% 
                  (cbind(1, x_test) %*% beta.hat - y_test) / length(y_test))
-  return(RMSE)
+  return(list(RMSE,best.formula))
 }
 
 pc_regression <- function(training, testing, k = 10){

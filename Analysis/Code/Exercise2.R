@@ -6,7 +6,7 @@ df02_11 <- input02_11[rows, ] %>%
 
 #the best predictor from Exercise 1 is PCR
 pcr.ex2 <- pc_regression(df92_02, df02_11) 
-lasso.ex2 <- lasso_regression(df92_02, df02_11) #k is omitted as default is 10
+lasso.ex2 <- lasso_regression(df92_02, df02_11)[1] #k is omitted as default is 10
 ridge.ex2 <- ridge_regression(df92_02, df02_11)
 subset.ex2 <- subset_selection(df92_02, df02_11)[1]
 naive.ex2 <- naive_regression(df92_02, df02_11)
@@ -25,3 +25,8 @@ stargazer(ex2.output,
           summary = FALSE, 
           rownames = TRUE,
           out = './Analysis/Output/ex2.tex')
+
+print("Best out-of-sample model of lasso regression is :")
+print(lasso_regression(df92_02, df02_11)[2])
+print("Best out-of-sample model of subset selection is :")
+print(subset_selection(df92_02, df02_11)[2])

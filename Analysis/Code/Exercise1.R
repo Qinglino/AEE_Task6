@@ -17,7 +17,7 @@ test92_02 <- df92_02[-train_label, ]
 # test92_02_norm <- df92_02_norm[-train_label, ]
 
 subset <- subset_selection(train92_02, test92_02, 10)[1] 
-lasso <- lasso_regression(train92_02, test92_02, 10) 
+lasso <- lasso_regression(train92_02, test92_02, 10)[1] 
 ridge <- ridge_regression(train92_02, test92_02, 10) 
 pcr <- pc_regression(train92_02, test92_02, 10) 
 naive <- naive_regression(train92_02, test92_02) 
@@ -35,3 +35,8 @@ stargazer(ex1.output,
           summary = FALSE, 
           rownames = TRUE,
           out = './Analysis/Output/ex1.tex')
+
+print("Best model of lasso regression (92_02) is :")
+print(lasso_regression(train92_02, test92_02)[2])
+print("Best model of subset selection (92_02) is :")
+print(subset_selection(train92_02, test92_02)[2])

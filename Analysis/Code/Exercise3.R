@@ -4,7 +4,7 @@ train02_11 <- df02_11[train_label, ]
 test02_11 <- df02_11[-train_label, ]
 
 subset.ex3 <- subset_selection(train02_11, test02_11, 10)[1] 
-lasso.ex3 <- lasso_regression(train02_11, test02_11, 10) 
+lasso.ex3 <- lasso_regression(train02_11, test02_11, 10) [1]
 ridge.ex3 <- ridge_regression(train02_11, test02_11, 10) 
 pcr.ex3 <- pc_regression(train02_11, test02_11, 10) 
 naive.ex3 <- naive_regression(train02_11, test02_11) 
@@ -24,5 +24,13 @@ stargazer(ex3.output,
           rownames = TRUE,
           out = './Analysis/Output/ex3.tex')
 
+print("Best model of subset selection (02_11) is :")
 print(subset_selection(train02_11, test02_11)[2])
+
+print("Best model of subset selection (92_02) is :")
 print(subset_selection(train92_02, test92_02)[2])
+#use 92_02 best model to fit 02_11 dataset
+reg1 <- lm(subset_selection(train92_02, test92_02)[2][[1]], data = df02_11)
+reg2 <- lm(subset_selection(train92_02, test92_02)[2][[1]], data = df92_02)
+stargazer(reg1, reg2, type = "latex", summary = FALSE, digits = 3, 
+          out = './Analysis/Output/comparison.tex')
