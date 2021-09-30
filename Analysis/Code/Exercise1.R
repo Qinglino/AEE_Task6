@@ -23,7 +23,10 @@ pcr <- pc_regression(train92_02, test92_02, 10)
 naive <- naive_regression(train92_02, test92_02) 
 ols <- kitchen_sink(train92_02, test92_02) 
 
-ex1.output <- cbind(subset, lasso, ridge, pcr, naive, ols) %>% as.data.frame()
+ex1.output <- cbind(subset, lasso, ridge, pcr, naive, ols) %>% 
+  as.numeric() %>% 
+  t() %>% 
+  as.data.frame()
 colnames(ex1.output) <- c("Subset selection", "Lasso", "Ridge", "PCR", "Mean", "OLS")
 rownames(ex1.output) <- "RMSE"
 stargazer(ex1.output, 

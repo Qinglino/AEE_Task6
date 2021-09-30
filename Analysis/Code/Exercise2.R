@@ -14,6 +14,8 @@ ols.ex2 <- kitchen_sink(df92_02, df02_11)
 
 ex2.output <- cbind(subset.ex2, lasso.ex2, ridge.ex2, 
                     pcr.ex2, naive.ex2, ols.ex2) %>% 
+  as.numeric() %>% 
+  t() %>% 
   as.data.frame()
 colnames(ex2.output) <- c("Subset selection", "Lasso", "Ridge", "PCR", "Mean", "OLS")
 rownames(ex2.output) <- "RMSE"

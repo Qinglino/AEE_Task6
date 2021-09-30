@@ -11,10 +11,13 @@ naive.ex3 <- naive_regression(train02_11, test02_11)
 ols.ex3 <- kitchen_sink(train02_11, test02_11) 
 
 ex3.output <- cbind(subset.ex3, lasso.ex3, ridge.ex3, pcr.ex3, 
-                    naive.ex3, ols.ex3) %>% as.data.frame()
-colnames(ex1.output) <- c("Subset selection", "Lasso", "Ridge", "PCR", "Mean", "OLS")
-rownames(ex1.output) <- "RMSE"
-stargazer(ex1.output, 
+                    naive.ex3, ols.ex3) %>% 
+  as.numeric() %>% 
+  t() %>% 
+  as.data.frame()
+colnames(ex3.output) <- c("Subset selection", "Lasso", "Ridge", "PCR", "Mean", "OLS")
+rownames(ex3.output) <- "RMSE"
+stargazer(ex3.output, 
           type = "latex", 
           digits = 4, 
           summary = FALSE, 
